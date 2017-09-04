@@ -13,7 +13,7 @@ class Solution(object):
             return min(x[i],y[j])
 
 
-        tmp = int(k / 2)           #若k/2的值大于一个数组的剩余元素个数，#########
+        tmp = int(k / 2)           #若k/2的值大于一个数组的剩余元素个数，#######
         if tmp > m:
             if x[i]<=y[j+tmp-1]:
                 return self.find_median(x, y, i+1, j,k-1)
