@@ -1,0 +1,77 @@
+class Solution(object):
+    def find_median(self,x,y,i,j,k):
+
+        m = len(x) - i
+        n = len(y) - j
+
+        if i>len(x)-1:             #若一个数组已经空了，则跳过他
+            return y[j+k-1]
+        if j>len(y)-1:
+            return x[i+k-1]
+        
+        if k==1:                   #k=1时输出结果
+            return min(x[i],y[j])
+
+
+        tmp = int(k / 2)           #若k/2的值大于一个数组的剩余元素个数，#########
+        if tmp > m:
+            if x[i]<=y[j+tmp-1]:
+                return self.find_median(x, y, i+1, j,k-1)
+            else:
+                return self.find_median(x,y,i,j+tmp,k-tmp)
+
+
+        else:
+            if x[i+tmp-1]<=y[j+tmp-1] and k>1:
+                return self.find_median(x,y,i+tmp,j,k-tmp)
+            if x[i+tmp-1]>y[j+tmp-1] and k>1:
+                return self.find_median(x,y,i,j+tmp,k-tmp)
+
+
+
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        m=len(nums1)
+        n=len(nums2)
+        
+        if m==0 and n==0:
+            return None
+
+        elif m==0:
+            if n%2==1:
+                return float(nums2[(n-1)/2])
+            else:
+                return (float(nums2[n/2])+float(nums2[n/2-1]))/2
+
+        elif n==0:
+            if m%2==1:
+                return float(nums1[(m-1)/2])
+            else:
+                return (float(nums1[n/2])+float(nums1[n/2-1]))/2
+
+
+        elif (m+n)%2==0:
+            k=(m+n)/2
+            if m>n:
+                one=self.find_median(nums2,nums1,0,0,k)
+                two=self.find_median(nums2, nums1, 0, 0, k+1)
+                return (float(one) + float(two))/2
+
+            else:
+                one=self.find_median(nums1,nums2,0,0,k)
+                two=self.find_median(nums1, nums2, 0, 0, k+1)
+                return (float(one)+float(two))/2
+
+
+
+        elif (m+n)%2==1:
+            k=(m+n+1)/2
+
+            if m>n:
+                return float(self.find_median(nums2,nums1,0,0,k))
+            else:
+                return float(self.find_median(nums1,nums2,0,0,k))
