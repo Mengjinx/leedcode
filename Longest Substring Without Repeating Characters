@@ -28,4 +28,4 @@ class Solution(object):
         if length < (len(s) - i ):
             length = len(s) - i
 
-        return length
+        return length#
