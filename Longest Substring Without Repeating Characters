@@ -1,0 +1,32 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        length = 0
+        i = 0
+        a = {}
+        for j, c in enumerate(s):
+
+
+            if c not in a:
+                a[c] = j
+            elif a[c]<i:       # 省去用删除字典的时间 改为更新
+                a[c]=j      
+                continue
+
+            else:
+
+                if length < (j - i):
+                    length = j - i
+
+                i = a[c] + 1
+                a[c]=j           # 遇到相同字符之后也要更新字典
+
+
+        if length < (len(s) - i ):
+            length = len(s) - i
+
+        return length
+       v
