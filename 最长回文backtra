@@ -1,0 +1,35 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str   DP
+        :rtype: str
+        """
+        if(len(s)<=1):
+            return s
+
+        str=''
+        max=0
+        for i in range(0,len(s)):
+            tmp=self.get_long(i,i,s)
+            if len(tmp)>max:
+                max=len(tmp)
+                str=tmp
+            if i<len(s)-1:
+                tmp=self.get_long(i,i+1,s)
+                if len(tmp)>max:
+                    max=len(tmp)
+                    str=tmp
+        return str
+
+
+
+
+    def get_long(self, l, r, s):
+        while l>=0 and r<len(s) and s[l]==s[r]:
+            l=l-1;r=r+1
+        if s[l+1:r]=="":
+            return s[l]
+        return s[l+1:r]
+
+
+
