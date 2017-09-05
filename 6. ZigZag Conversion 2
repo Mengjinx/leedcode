@@ -1,0 +1,26 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if len(s)<=numRows or numRows==1:
+            return s
+        
+        str=['']*numRows
+        step=1    #用于表示此时zigzag向上还是向下
+        now=0     #此时在第几行
+        for c in s:
+            if now==0:
+                str[now]+=c
+                step=1
+                now+=step
+            elif now==numRows-1:
+                str[now]+=c
+                step=-1
+                now+=step
+            else:
+                str[now]+=c
+                now+=step
+        return ''.join(str)
