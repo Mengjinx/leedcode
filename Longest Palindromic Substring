@@ -1,0 +1,33 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str   DP
+        :rtype: str
+        """
+        if(len(s)<=1):
+            return s
+        array=[[False for i in range(len(s))] for i in range(len(s))]
+
+        for i in range(0,len(s)):
+            array[i][i]=True
+        str=''
+        max=0
+        for i in range(0,len(s)):        #i指向当前字符串后 指针j指向前
+            for j in range(0,i+1):
+                if j<i and s[j]==s[j+1]: #bb也是回文
+                    array[j][j+1]=True
+                if i<len(s)-1 and array[j][i]==True and s[j-1]==s[i+1]: 
+                    array[j-1][i+1]=True
+
+
+                if array[j][i]==True:
+                    if i-j+1>max:
+                        max=i-j+1
+                        str=s[j:i+1]
+        if max==0:
+            max=1
+            str=s[0]
+        return str
+
+
+
